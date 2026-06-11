@@ -14,7 +14,7 @@ export default function Login() {
     setLoading(true);
     try {
       await signInWithPopup(auth, googleProvider);
-      router.push("/budget"); // Sau khi login thành công → redirect sang budget
+      router.push("/dashboard");
     } catch (error) {
       console.error("Login error:", error);
       alert("Đăng nhập thất bại! Thử lại.");
@@ -23,18 +23,33 @@ export default function Login() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-50">
-      <div className="max-w-sm w-full bg-white rounded-xl shadow-lg p-8 text-center">
-        <h1 className="text-3xl font-bold mb-2">💰</h1>
-        <h2 className="text-2xl font-bold mb-2">Expense Tracker</h2>
-        <p className="text-gray-600 mb-8">Quản lý chi tiêu thông minh</p>
+    <main className="min-h-screen relative overflow-hidden flex items-center justify-center p-4 bg-cream-50">
+      {/* Decorative Blur Blobs */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#fbe3e3] rounded-full blur-[100px] opacity-75 animate-float-slow" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#ffe3d8] rounded-full blur-[100px] opacity-75 animate-float-slow-reverse" />
+
+      <div className="relative max-w-md w-full glass-panel rounded-3xl shadow-pink-glow p-10 border border-white/60 text-center z-10 transition-all duration-300 hover:shadow-[0_15px_40px_rgba(242,155,155,0.25)]">
+        {/* Decorative Flower or Budget Icon */}
+        <div className="w-20 h-20 bg-gradient-to-tr from-pink-brand to-[#ffe3d8] rounded-2xl flex items-center justify-center text-4xl shadow-pink-glow mx-auto mb-6 animate-pulse">
+          🌸
+        </div>
+        
+        <h1 className="text-3xl font-extrabold tracking-tight text-plum-900 mb-2">
+          Blossom Budget
+        </h1>
+        <p className="text-plum-600 font-medium mb-8">
+          Quản lý chi tiêu trong tầm tay với tông màu hồng kem tinh tế
+        </p>
 
         {loading ? (
-          <div className="text-blue-500">Đang đăng nhập...</div>
+          <div className="flex flex-col items-center justify-center py-4">
+            <div className="w-10 h-10 border-4 border-pink-brand border-t-transparent rounded-full animate-spin mb-3"></div>
+            <p className="text-plum-600 font-medium text-sm">Đang kết nối tài khoản Google...</p>
+          </div>
         ) : (
           <button
             onClick={handleLogin}
-            className="w-full px-6 py-3 bg-white border-2 border-gray-200 rounded-lg font-medium flex items-center justify-center gap-3 hover:bg-gray-50 transition-colors"
+            className="w-full px-6 py-4 bg-white hover:bg-pink-soft border border-plum-100 hover:border-pink-brand rounded-2xl font-semibold text-plum-900 flex items-center justify-center gap-3 transition-all duration-300 shadow-sm hover:shadow-pink-button hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
@@ -54,7 +69,7 @@ export default function Login() {
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
               />
             </svg>
-            Đăng nhập bằng Google
+            <span>Đăng nhập bằng Google</span>
           </button>
         )}
       </div>
